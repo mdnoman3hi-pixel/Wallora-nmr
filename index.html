@@ -7,9 +7,9 @@
   <title>Wallora</title>
 
   <meta name="theme-color" content="#0d0d0f">
-  <meta name="description" content="Beautiful wallpapers for everyone">
+  <meta name="description" content="Wallora - Beautiful wallpapers for everyone">
 
-  <link rel="manifest" href="./manifest.json">
+  <link rel="manifest" href="manifest.json">
 
   <style>
     * {
@@ -29,6 +29,9 @@
       padding: 20px;
       text-align: center;
       background: #151518;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     header h1 {
@@ -40,15 +43,14 @@
       margin-top: 5px;
     }
 
-    .install {
-      display: block;
-      margin: 15px;
-      padding: 14px;
-      width: calc(100% - 30px);
+    #installBtn {
+      display: none;
+      margin: 15px auto;
+      padding: 12px 22px;
       border: none;
-      border-radius: 12px;
+      border-radius: 25px;
       background: white;
-      color: black;
+      color: #111;
       font-size: 16px;
       font-weight: bold;
     }
@@ -132,6 +134,7 @@
       display: flex;
       justify-content: space-around;
       padding: 13px 5px;
+      z-index: 20;
     }
 
     nav div {
@@ -151,11 +154,9 @@
   <header>
     <h1>Wallora 🖼️</h1>
     <p>Beautiful wallpapers for everyone</p>
-  </header>
 
-  <button class="install" id="installBtn">
-    📲 Install Wallora
-  </button>
+    <button id="installBtn">📲 Install Wallora</button>
+  </header>
 
   <div class="search">
     <input type="text" placeholder="🔍 Search wallpapers...">
@@ -172,7 +173,6 @@
   <h2 class="title">🔥 Popular Wallpapers</h2>
 
   <div class="grid">
-
     <div class="wallpaper">
       <span>Dark</span>
     </div>
@@ -188,7 +188,6 @@
     <div class="wallpaper">
       <span>Premium</span>
     </div>
-
   </div>
 
   <nav>
@@ -199,39 +198,30 @@
   </nav>
 
   <script>
-    let deferredPrompt = null;
-
+    let deferredPrompt;
     const installBtn = document.getElementById("installBtn");
 
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      deferredPrompt = event;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "block";
     });
 
     installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
 
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
+      deferredPrompt.prompt();
 
-        const result = await deferredPrompt.userChoice;
+      await deferredPrompt.userChoice;
 
-        if (result.outcome === "accepted") {
-          installBtn.textContent = "✅ Wallora Installed";
-        }
-
-        deferredPrompt = null;
-      } else {
-        alert("Chrome-এর ⋮ মেনু থেকে Install app নির্বাচন করুন।");
-      }
-
+      deferredPrompt = null;
+      installBtn.style.display = "none";
     });
 
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-      });
-    }
+    window.addEventListener("appinstalled", () => {
+      installBtn.style.display = "none";
+    });
   </script>
 
 </body>
-    </html>
+</html>
