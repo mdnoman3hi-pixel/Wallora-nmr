@@ -1,10 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Wallora</title>
+
+  <meta name="theme-color" content="#0d0d0f">
+  <meta name="description" content="Beautiful wallpapers for everyone">
+
+  <link rel="manifest" href="manifest.json">
 
   <style>
     * {
@@ -17,14 +22,13 @@
       font-family: Arial, sans-serif;
       background: #0d0d0f;
       color: white;
+      padding-bottom: 70px;
     }
 
     header {
       padding: 20px;
       text-align: center;
       background: #151518;
-      position: sticky;
-      top: 0;
     }
 
     header h1 {
@@ -34,6 +38,19 @@
     header p {
       color: #aaa;
       margin-top: 5px;
+    }
+
+    .install {
+      display: block;
+      margin: 15px;
+      padding: 14px;
+      width: calc(100% - 30px);
+      border: none;
+      border-radius: 12px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
     }
 
     .search {
@@ -136,6 +153,10 @@
     <p>Beautiful wallpapers for everyone</p>
   </header>
 
+  <button class="install" id="installBtn">
+    📲 Install Wallora
+  </button>
+
   <div class="search">
     <input type="text" placeholder="🔍 Search wallpapers...">
   </div>
@@ -151,6 +172,7 @@
   <h2 class="title">🔥 Popular Wallpapers</h2>
 
   <div class="grid">
+
     <div class="wallpaper">
       <span>Dark</span>
     </div>
@@ -166,6 +188,7 @@
     <div class="wallpaper">
       <span>Premium</span>
     </div>
+
   </div>
 
   <nav>
@@ -175,5 +198,30 @@
     <div>⚙️<br>Settings</div>
   </nav>
 
+  <script>
+    let deferredPrompt;
+
+    const installBtn = document.getElementById("installBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "block";
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        alert("Chrome-এর মেনু থেকে Add to Home screen / Install app নির্বাচন করুন।");
+        return;
+      }
+
+      deferredPrompt.prompt();
+
+      await deferredPrompt.userChoice;
+
+      deferredPrompt = null;
+    });
+  </script>
+
 </body>
-  </html>
+</html>
