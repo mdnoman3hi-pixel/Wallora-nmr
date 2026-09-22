@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#0d0d0f">
   <meta name="description" content="Beautiful wallpapers for everyone">
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
 
   <style>
     * {
@@ -172,6 +172,7 @@
   <h2 class="title">🔥 Popular Wallpapers</h2>
 
   <div class="grid">
+
     <div class="wallpaper">
       <span>Dark</span>
     </div>
@@ -187,6 +188,7 @@
     <div class="wallpaper">
       <span>Premium</span>
     </div>
+
   </div>
 
   <nav>
@@ -197,25 +199,31 @@
   </nav>
 
   <script>
-    let deferredPrompt;
+    let deferredPrompt = null;
 
     const installBtn = document.getElementById("installBtn");
 
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = "block";
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
     });
 
     installBtn.addEventListener("click", async () => {
-      if (!deferredPrompt) {
-        alert("Chrome-এর মেনু থেকে Add to Home screen / Install app নির্বাচন করুন।");
-        return;
+
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+
+        const result = await deferredPrompt.userChoice;
+
+        if (result.outcome === "accepted") {
+          installBtn.textContent = "✅ Wallora Installed";
+        }
+
+        deferredPrompt = null;
+      } else {
+        alert("Chrome-এর ⋮ মেনু থেকে Install app নির্বাচন করুন।");
       }
 
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
     });
 
     if ("serviceWorker" in navigator) {
@@ -226,4 +234,4 @@
   </script>
 
 </body>
-                        </html>
+    </html>
