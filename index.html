@@ -172,7 +172,6 @@
   <h2 class="title">🔥 Popular Wallpapers</h2>
 
   <div class="grid">
-
     <div class="wallpaper">
       <span>Dark</span>
     </div>
@@ -188,7 +187,6 @@
     <div class="wallpaper">
       <span>Premium</span>
     </div>
-
   </div>
 
   <nav>
@@ -216,12 +214,16 @@
       }
 
       deferredPrompt.prompt();
-
       await deferredPrompt.userChoice;
-
       deferredPrompt = null;
     });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js");
+      });
+    }
   </script>
 
 </body>
-</html>
+                        </html>
