@@ -1,1 +1,179 @@
 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallora</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0f;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #151518;
+      position: sticky;
+      top: 0;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    header p {
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .search {
+      margin: 15px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background: #202024;
+      color: white;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 5px 15px 15px;
+    }
+
+    .categories button {
+      border: none;
+      background: #202024;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .title {
+      padding: 10px 15px;
+      font-size: 21px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 0 15px 30px;
+    }
+
+    .wallpaper {
+      height: 250px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #222, #555);
+      position: relative;
+    }
+
+    .wallpaper:nth-child(2) {
+      background: linear-gradient(135deg, #172554, #0f766e);
+    }
+
+    .wallpaper:nth-child(3) {
+      background: linear-gradient(135deg, #3b0764, #be185d);
+    }
+
+    .wallpaper:nth-child(4) {
+      background: linear-gradient(135deg, #292524, #78716c);
+    }
+
+    .wallpaper span {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-weight: bold;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #151518;
+      display: flex;
+      justify-content: space-around;
+      padding: 13px 5px;
+    }
+
+    nav div {
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    nav div:first-child {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Wallora 🖼️</h1>
+    <p>Beautiful wallpapers for everyone</p>
+  </header>
+
+  <div class="search">
+    <input type="text" placeholder="🔍 Search wallpapers...">
+  </div>
+
+  <div class="categories">
+    <button>🔥 Trending</button>
+    <button>⚽ Football</button>
+    <button>🌌 Nature</button>
+    <button>🚗 Cars</button>
+    <button>🎮 Gaming</button>
+  </div>
+
+  <h2 class="title">🔥 Popular Wallpapers</h2>
+
+  <div class="grid">
+    <div class="wallpaper">
+      <span>Dark</span>
+    </div>
+
+    <div class="wallpaper">
+      <span>Nature</span>
+    </div>
+
+    <div class="wallpaper">
+      <span>Neon</span>
+    </div>
+
+    <div class="wallpaper">
+      <span>Premium</span>
+    </div>
+  </div>
+
+  <nav>
+    <div>🏠<br>Home</div>
+    <div>❤️<br>Favorite</div>
+    <div>⬇️<br>Downloads</div>
+    <div>⚙️<br>Settings</div>
+  </nav>
+
+</body>
+  </html>
